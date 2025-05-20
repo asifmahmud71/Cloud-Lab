@@ -1,5 +1,5 @@
-from flask import Flask, request, render_template_string
-import mysql.connector
+from flask import Flask, request
+import psycopg2
 
 app = Flask(__name__)
 
