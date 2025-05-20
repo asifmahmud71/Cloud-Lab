@@ -4,22 +4,37 @@ import mysql.connector
 app = Flask(__name__)
 
 db = mysql.connector.connect(
-    host="your-host",
-    user="your-user",
-    password="your-password",
-    database="your-db"
+    host="dpg-d0m4gn0dl3ps73c0rp00-a",
+    user="cloud_lab_db_user",
+    password="eoMaJikxdfCY1mtTVas3S7dtiuEYDOuz",
+    database="cloud_lab_db"
+    port = 5432
 )
 cursor = db.cursor()
-cursor.execute("CREATE TABLE IF NOT EXISTS users (username VARCHAR(50), password VARCHAR(50))")
+
+# Create users table if it doesn't exist
+cursor.execute("""
+    CREATE TABLE IF NOT EXISTS users (
+        username VARCHAR(50),
+        password VARCHAR(50)
+    );
+""")
+db.commit()
 
 @app.route('/')
 def index():
     return '''
+    <h2>Register</h2>
     <form action="/register" method="post">
-        Register: <input name="username"><input name="password" type="password"><input type="submit" value="Register">
+        Username: <input name="username"><br>
+        Password: <input name="password" type="password"><br>
+        <input type="submit" value="Register">
     </form>
+    <h2>Login</h2>
     <form action="/login" method="post">
-        Login: <input name="username"><input name="password" type="password"><input type="submit" value="Login">
+        Username: <input name="username"><br>
+        Password: <input name="password" type="password"><br>
+        <input type="submit" value="Login">
     </form>
     '''
 
