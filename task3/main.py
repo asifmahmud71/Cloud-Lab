@@ -3,7 +3,7 @@ import psycopg2
 
 app = Flask(__name__)
 
-db = mysql.connector.connect(
+db = psycopg2.connect(
     host="dpg-d0m4gn0dl3ps73c0rp00-a",
     user="cloud_lab_db_user",
     password="eoMaJikxdfCY1mtTVas3S7dtiuEYDOuz",
