@@ -7,7 +7,7 @@ db = mysql.connector.connect(
     host="dpg-d0m4gn0dl3ps73c0rp00-a",
     user="cloud_lab_db_user",
     password="eoMaJikxdfCY1mtTVas3S7dtiuEYDOuz",
-    database="cloud_lab_db"
+    database="cloud_lab_db",
     port = 5432
 )
 cursor = db.cursor()
