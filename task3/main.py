@@ -46,7 +46,7 @@ def login_page():
         <div class="note">
             <p><strong>Try with this login credentials:</strong></p>
             <p>Username: <code>admin</code></p>
-            <p>Password: <code>1234</code></p>
+            <p>Password: <code>admin123</code></p>
         </div>
     </div>
     '''
