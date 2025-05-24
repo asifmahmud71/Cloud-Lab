@@ -1,9 +1,8 @@
-from flask import Flask, request, redirect
+from flask import Flask, request
 import psycopg2
 
 app = Flask(__name__)
 
-# PostgreSQL connection
 db = psycopg2.connect(
     host="dpg-d0m4gn0dl3ps73c0rp00-a",
     user="cloud_lab_db_user",
@@ -13,7 +12,7 @@ db = psycopg2.connect(
 )
 cursor = db.cursor()
 
-# Create users table
+# Table create (only once, keep it or comment after creation)
 cursor.execute("""
     CREATE TABLE IF NOT EXISTS users (
         username VARCHAR(50),
@@ -22,7 +21,6 @@ cursor.execute("""
 """)
 db.commit()
 
-# Common CSS for UI
 HTML_STYLE = """
 <style>
     body { font-family: Arial, sans-serif; background-color: #f0f2f5; text-align: center; margin-top: 50px; }
@@ -35,23 +33,7 @@ HTML_STYLE = """
 </style>
 """
 
-# Home route
 @app.route('/')
-def index():
-    return HTML_STYLE + '''
-    <div class="box">
-        <h2>Register</h2>
-        <form action="/register" method="post">
-            <input name="username" placeholder="Username"><br>
-            <input name="password" type="password" placeholder="Password"><br>
-            <input type="submit" value="Register">
-        </form>
-        <p>Already registered? <a href="/login">Login here</a></p>
-    </div>
-    '''
-
-# Login page (GET)
-@app.route('/login')
 def login_page():
     return HTML_STYLE + '''
     <div class="box">
@@ -69,15 +51,6 @@ def login_page():
     </div>
     '''
 
-# Register (POST)
-@app.route('/register', methods=['POST'])
-def register():
-    cursor.execute("INSERT INTO users (username, password) VALUES (%s, %s)", 
-                   (request.form['username'], request.form['password']))
-    db.commit()
-    return redirect("/login")
-
-# Login (POST)
 @app.route('/login', methods=['POST'])
 def login():
     cursor.execute("SELECT * FROM users WHERE username=%s AND password=%s", 
@@ -85,14 +58,13 @@ def login():
     if cursor.fetchone():
         return HTML_STYLE + '''
         <h2>Login Successful ✅</h2>
-        <a href="/login"><button>Back</button></a>
+        <a href="/"><button>Back</button></a>
         '''
     return HTML_STYLE + '''
     <h2>Login Failed ❌</h2>
-    <a href="/login"><button>Back</button></a>
+    <a href="/"><button>Back</button></a>
     '''
 
-# Run the app
 if __name__ == '__main__':
     import os
     port = int(os.environ.get("PORT", 5000))
