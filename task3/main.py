@@ -4,10 +4,10 @@ import psycopg2
 app = Flask(__name__)
 
 db = psycopg2.connect(
-    host="dpg-d0m4gn0dl3ps73c0rp00-a",
+    host="dpg-d230rq3e5dus73a4fom0-a",
     user="cloud_lab_db_user",
-    password="eoMaJikxdfCY1mtTVas3S7dtiuEYDOuz",
-    database="cloud_lab_db",
+    password="R1awkCGCaLry8JAHL8MBQFM0mZ4mMzwD",
+    database="cloud_lab_db_74rr",
     port=5432
 )
 cursor = db.cursor()
